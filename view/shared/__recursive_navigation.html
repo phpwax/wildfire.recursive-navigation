@@ -1,0 +1,7 @@
+<?
+if(!$scope) $scope = "live";
+if(!$ident) $ident = "title";
+$stack = array();
+foreach($active->path_to_root() as $n) $stack[] = $n->primval;
+?>
+<?if(($kids = $root->children) && ($kids = $kids->scope($scope)->all()) && $kids->count()):?><ul class='nav'><?foreach($kids as $node):?><li class='item depth-<?=count($stack)?> <?=$scope?><?if(in_array($node->primval, $stack)):?> open<?endif?><?if($node->primval == $active->primval):?> active<?endif?>'><a href="<?=$node->permalink?>" class='top top-<?=count($stack)?> <?=$scope?>'><?=$node->$ident?></a><?if(($sub = $node->children) && ($c = $sub->scope($scope)->all()) && $c->count() && in_array($node->primval, $stack)):?><?=partial("__recursive_navigation", array('root'=>$node, 'active'=>$active, 'scope'=>$scope, 'ident'=>$ident))?><?endif?></li><?endforeach?></ul><?endif?>
