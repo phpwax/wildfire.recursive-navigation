@@ -1,8 +1,10 @@
 <?
 if(!$scope) $scope = "live";
 if(!$ident) $ident = "title";
-$stack = array();
-$depth = array();
+$stack = array($active->primval);
+$depth = array($root->primval);
+$lvl = $active;
+$rt = $root;
 while($lvl = $lvl->parent) $stack[] = $lvl->primval;
 while($t = $t->parent) $depth[] = $t->primval;
 ?>
